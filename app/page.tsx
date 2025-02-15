@@ -43,117 +43,120 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen p-4 flex items-center justify-center">
-      <div className="w-full max-w-md space-y-4">
-        <form action={handleSearch} className="flex gap-2">
-          <Input
-            name="city"
-            type="text"
-            placeholder="Enter city name..."
-            className="bg-white/90"
-            required
-          />
-          <SubmitButton />
-        </form>
+    <div className="min-h-screen p-6 flex items-center justify-center">
+  <div className="w-full max-w-lg space-y-6">
+    {/* Formulario */}
+    <form action={handleSearch} className="flex gap-3 bg-white/30 p-3 rounded-lg shadow-md backdrop-blur-lg">
+      <Input
+        name="city"
+        type="text"
+        placeholder="Enter city name..."
+        className="bg-white/80 border border-gray-300 px-4 py-2 rounded-lg focus:ring focus:ring-blue-400 transition"
+        required
+      />
+      <SubmitButton />
+    </form>
 
-        {error && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="text-center text-red-200 bg-red-500/20 rounded-md p-2"
-          >
-            {error}
-          </motion.div>
-        )}
+    {/* Mensaje de error */}
+    {error && (
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0 }}
+        className="text-center text-red-600 bg-red-100 border border-red-300 rounded-lg p-3 shadow-md"
+      >
+        {error}
+      </motion.div>
+    )}
 
-        {weather && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Card className="bg-white/50 backdrop-blur">
-              <CardContent className="p-6">
-                <div className="text-center mb-4">
-                  <motion.h2
-                    initial={{ scale: 0.5 }}
-                    animate={{ scale: 1 }}
-                    className="text-2xl font-bold"
-                  >
-                    {weather.name}
-                  </motion.h2>
-                  <div className="flex items-center justify-center gap-2 mt-2">
-                    <motion.img
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-                      alt={weather.weather[0].description}
-                      width={64}
-                      height={64}
-                    />
-                    <motion.div
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2 }}
-                      className="text-5xl font-bold"
-                    >
-                      {Math.round(weather.main.temp)}°C
-                    </motion.div>
-                  </div>
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.3 }}
-                    className="text-gray-500 mt-1 capitalize"
-                  >
-                    {weather.weather[0].description}
-                  </motion.div>
-                </div>
-
-                <motion.div
-                  className="grid grid-cols-3 gap-4 mt-6"
-                  initial={{ opacity: 0, y: 20 }}
+    {/* Tarjeta de clima */}
+    {weather && (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <Card className="bg-white/50 backdrop-blur-lg rounded-xl shadow-lg border border-gray-200">
+          <CardContent className="p-6">
+            <div className="text-center mb-6">
+              <motion.h2
+                initial={{ scale: 0.5 }}
+                animate={{ scale: 1 }}
+                className="text-3xl font-semibold text-gray-800"
+              >
+                {weather.name}
+              </motion.h2>
+              <div className="flex items-center justify-center gap-3 mt-3">
+                <motion.img
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
+                  src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+                  alt={weather.weather[0].description}
+                  width={80}
+                  height={80}
+                  className="drop-shadow-md"
+                />
+                <motion.div
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-6xl font-bold text-gray-900"
                 >
-                  <motion.div
-                    className="text-center"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <Thermometer className="w-6 h-6 mx-auto text-orange-500" />
-                    <div className="mt-2 text-sm text-gray-500">Feels like</div>
-                    <div className="font-semibold">
-                      {Math.round(weather.main.feels_like)}°C
-                    </div>
-                  </motion.div>
-                  <motion.div
-                    className="text-center"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <Droplets className="w-6 h-6 mx-auto text-blue-500" />
-                    <div className="mt-2 text-sm text-gray-500">Humidity</div>
-                    <div className="font-semibold">
-                      {weather.main.humidity}%
-                    </div>
-                  </motion.div>
-                  <motion.div
-                    className="text-center"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <Wind className="w-6 h-6 mx-auto text-teal-500" />
-                    <div className="mt-2 text-sm text-gray-500">Wind</div>
-                    <div className="font-semibold">
-                      {Math.round(weather.wind.speed)} m/s
-                    </div>
-                  </motion.div>
+                  {Math.round(weather.main.temp)}°C
                 </motion.div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        )}
-      </div>
-    </div>
+              </div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+                className="text-gray-600 mt-2 text-lg capitalize"
+              >
+                {weather.weather[0].description}
+              </motion.div>
+            </div>
+
+            {/* Información adicional */}
+            <motion.div
+              className="grid grid-cols-3 gap-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              {[
+                {
+                  icon: <Thermometer className="w-8 h-8 mx-auto text-orange-500" />,
+                  label: "Feels like",
+                  value: `${Math.round(weather.main.feels_like)}°C`,
+                },
+                {
+                  icon: <Droplets className="w-8 h-8 mx-auto text-blue-500" />,
+                  label: "Humidity",
+                  value: `${weather.main.humidity}%`,
+                },
+                {
+                  icon: <Wind className="w-8 h-8 mx-auto text-teal-500" />,
+                  label: "Wind",
+                  value: `${Math.round(weather.wind.speed)} m/s`,
+                },
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  className="text-center bg-white/70 p-4 rounded-lg shadow-md backdrop-blur-md hover:scale-105 transition"
+                  whileHover={{ scale: 1.1 }}
+                >
+                  {item.icon}
+                  <div className="mt-2 text-sm text-gray-500">{item.label}</div>
+                  <div className="font-semibold text-gray-900">{item.value}</div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </CardContent>
+        </Card>
+      </motion.div>
+    )}
+  </div>
+</div>
+
   );
 }
